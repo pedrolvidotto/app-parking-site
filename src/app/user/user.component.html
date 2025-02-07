@@ -9,4 +9,7 @@
   <ul>
     <li *ngFor="let printer of printers">{{ printer.name }}</li>
   </ul>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 </div>
