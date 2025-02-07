@@ -45,6 +45,7 @@ const DUMMY_USERS: User[] = [
 export class UserComponent {
   selectedUser = signal(DUMMY_USERS[this.randomIndex]);
   imagePath = computed(() => 'assets/users/' + this.selectedUser().avatar);
+  printers: Bluetooth.BluetoothDevice[] = []; // Array para armazenar impressoras encontradas
 
   onSelectUser() {
     const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
@@ -53,5 +54,26 @@ export class UserComponent {
 
   private get randomIndex(): number {
     return Math.floor(Math.random() * DUMMY_USERS.length);
+  }
+
+  async listBluetoothPrinters() {
+    try {
+      // Verifica se a API Bluetooth está disponível
+      if ('bluetooth' in navigator) {
+        // Solicita ao usuário que selecione dispositivos Bluetooth
+        const device = await navigator.bluetooth.requestDevice({
+          filters: [{ services: ['printer_service'] }], // Substitua pelo UUID correto
+        });
+
+        // Adiciona o dispositivo selecionado à lista de impressoras
+        this.printers.push(device);
+
+        console.log('Impressora Bluetooth encontrada:', device.name);
+      } else {
+        console.error('Bluetooth não é suportado neste dispositivo.');
+      }
+    } catch (error) {
+      console.error('Erro ao listar impressoras Bluetooth:', error);
+    }
   }
 }

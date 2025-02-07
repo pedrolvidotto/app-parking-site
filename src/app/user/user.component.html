@@ -3,4 +3,10 @@
     <img [src]="imagePath()" [alt]="selectedUser().name" />
     <span>{{ selectedUser().name }}</span>
   </button>
+  <button (click)="listBluetoothPrinters()">
+    Listar Impressoras Bluetooth
+  </button>
+  <ul>
+    <li *ngFor="let printer of printers">{{ printer.name }}</li>
+  </ul>
 </div>
