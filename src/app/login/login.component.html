@@ -1,0 +1,48 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="logo">
+      <img src="assets/mmparking-logo.svg" alt="MMParking Logo" />
+    </div>
+
+    <h1>MMParking</h1>
+    <p>Sistema de Estacionamento</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          id="email"
+          formControlName="login"
+          placeholder="Digite seu email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <div class="password-field">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="Digite sua senha"
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePassword()"
+          >
+            <i
+              class="fas"
+              [class.fa-eye]="!showPassword"
+              [class.fa-eye-slash]="showPassword"
+            ></i>
+          </button>
+        </div>
+        <a href="#" class="forgot-password">Esqueceu?</a>
+      </div>
+
+      <button type="submit" class="login-button">ENTRAR</button>
+    </form>
+  </div>
+</div>

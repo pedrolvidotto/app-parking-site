@@ -1,0 +1,17 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Círculo de fundo -->
+  <circle cx="40" cy="40" r="40" fill="#6B4BCC"/>
+
+  <!-- Prancheta estilizada -->
+  <rect x="24" y="16" width="32" height="48" rx="4" fill="white"/>
+
+  <!-- Linhas da lista -->
+  <rect x="28" y="28" width="24" height="3" rx="1.5" fill="#6B4BCC"/>
+  <rect x="28" y="36" width="24" height="3" rx="1.5" fill="#6B4BCC"/>
+  <rect x="28" y="44" width="24" height="3" rx="1.5" fill="#6B4BCC"/>
+
+  <!-- Círculos decorativos -->
+  <circle cx="32" cy="28" r="2" fill="#6B4BCC"/>
+  <circle cx="32" cy="36" r="2" fill="#6B4BCC"/>
+  <circle cx="32" cy="44" r="2" fill="#6B4BCC"/>
+</svg>
