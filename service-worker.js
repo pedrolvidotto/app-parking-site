@@ -34,3 +34,36 @@ if ("serviceWorker" in navigator) {
       });
   });
 }
+
+// Função para conectar a uma impressora via Bluetooth
+async function connectToBluetoothPrinter() {
+  try {
+    // Solicita ao usuário que selecione um dispositivo Bluetooth
+    const device = await navigator.bluetooth.requestDevice({
+      filters: [{ services: ["printer_service"] }], // Substitua por um serviço específico da impressora
+    });
+
+    // Conecta ao dispositivo selecionado
+    const server = await device.gatt.connect();
+
+    // Obtém o serviço desejado (substitua pelo serviço correto da impressora)
+    const service = await server.getPrimaryService("printer_service");
+
+    // Obtém a característica desejada (substitua pela característica correta)
+    const characteristic = await service.getCharacteristic(
+      "print_characteristic"
+    );
+
+    // Exemplo: Enviar dados para a impressora
+    const data = new Uint8Array([
+      /* dados a serem impressos */
+    ]);
+    await characteristic.writeValue(data);
+    console.log("Dados enviados para a impressora com sucesso.");
+  } catch (error) {
+    console.error("Erro ao conectar à impressora Bluetooth:", error);
+  }
+}
+
+// Chame a função para iniciar a conexão
+connectToBluetoothPrinter();
