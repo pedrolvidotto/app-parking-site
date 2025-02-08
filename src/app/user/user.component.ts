@@ -25,7 +25,7 @@ const DUMMY_USERS: User[] = [
     id: 3,
     name: 'Pedro Oliveira',
     email: 'pedro@email.com',
-    avatar: 'avatar3.jpg',
+    avatar: 'user-3.jpg',
   },
   {
     id: 4,
