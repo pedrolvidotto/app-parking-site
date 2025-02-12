@@ -7,9 +7,23 @@ self.addEventListener("install", (event) => {
         "/styles.css",
         "/script.js",
         "/assets/logo.svg",
-        "/assets/logo.svg",
         // Adicione outros arquivos que você deseja armazenar em cache
       ]);
+    })
+  );
+});
+
+self.addEventListener("activate", (event) => {
+  const cacheWhitelist = ["v1"]; // Atualize para a nova versão do cache
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName); // Remove caches antigos
+          }
+        })
+      );
     })
   );
 });

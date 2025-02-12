@@ -59,4 +59,35 @@ export class AppComponent {
       this.errorMessage = `Erro ao listar impressoras Bluetooth: ${error?.message}`;
     }
   }
+
+  ngOnInit() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registrado com sucesso:', registration);
+
+            // Verifica se há uma nova versão do Service Worker
+            registration.onupdatefound = () => {
+              const newWorker = registration.installing;
+              if (newWorker) {
+                newWorker.onstatechange = () => {
+                  if (newWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      // Nova versão disponível
+                      console.log('Nova versão disponível. Atualize a página.');
+                      // Aqui você pode notificar o usuário ou atualizar automaticamente
+                    }
+                  }
+                };
+              }
+            };
+          })
+          .catch((error) => {
+            console.error('Falha ao registrar o Service Worker:', error);
+          });
+      });
+    }
+  }
 }
