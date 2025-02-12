@@ -24,4 +24,30 @@ export class BluetoothComponent {
       this.errorMessage = `Erro ao conectar ao dispositivo Bluetooth: ${error.message}`;
     }
   }
+
+  async printTestPage() {
+    this.errorMessage = null; // Limpa a mensagem de erro
+    try {
+      const device = await navigator.bluetooth.requestDevice({
+        filters: [{ services: ['00001101-0000-1000-8000-00805f9b34fb'] }], // Substitua pelo UUID correto da impressora
+      });
+
+      const server = await device.gatt.connect();
+      const service = await server.getPrimaryService(
+        '00001101-0000-1000-8000-00805f9b34fb'
+      ); // Substitua pelo UUID correto
+      const characteristic = await service.getCharacteristic(
+        '00001102-0000-1000-8000-00805f9b34fb'
+      ); // Substitua pela característica correta
+
+      // Dados de teste para impressão
+      const data = new Uint8Array([
+        /* dados a serem impressos */
+      ]);
+      await characteristic.writeValue(data);
+      console.log('Dados enviados para a impressora com sucesso.');
+    } catch (error: any) {
+      this.errorMessage = `Erro ao enviar dados para a impressora: ${error.message}`;
+    }
+  }
 }
