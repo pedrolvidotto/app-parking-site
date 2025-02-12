@@ -14,9 +14,7 @@ export class BluetoothComponent {
   async connectToBluetoothDevice() {
     this.errorMessage = null; // Limpa a mensagem de erro
     try {
-      const device = await navigator.bluetooth.requestDevice({
-        filters: [{ services: ['00001101-0000-1000-8000-00805f9b34fb'] }], // Substitua pelo UUID correto
-      });
+      const device = await navigator.bluetooth.requestDevice();
 
       this.devices.push(device);
       console.log('Dispositivo Bluetooth conectado:', device.name);
