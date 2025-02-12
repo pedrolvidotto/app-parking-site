@@ -15,7 +15,7 @@ export class BluetoothComponent {
     this.errorMessage = null; // Limpa a mensagem de erro
     try {
       const device = await navigator.bluetooth.requestDevice({
-        filters: [{ services: ['battery_service'] }], // Substitua pelo UUID do serviço desejado
+        filters: [{ services: ['print_service'] }], // Substitua pelo UUID do serviço de impressora desejado
       });
 
       this.devices.push(device);
