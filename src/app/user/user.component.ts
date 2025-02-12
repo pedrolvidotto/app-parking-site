@@ -1,39 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  avatar: string;
-}
-
-const DUMMY_USERS: User[] = [
-  {
-    id: 1,
-    name: 'João Silva',
-    email: 'joao@email.com',
-    avatar: 'user-1.jpg',
-  },
-  {
-    id: 2,
-    name: 'Maria Santos',
-    email: 'maria@email.com',
-    avatar: 'user-2.jpg',
-  },
-  {
-    id: 3,
-    name: 'Pedro Oliveira',
-    email: 'pedro@email.com',
-    avatar: 'user-3.jpg',
-  },
-  {
-    id: 4,
-    name: 'Ana Costa',
-    email: 'ana@email.com',
-    avatar: 'user-4.jpg',
-  },
-];
+import { DUMMY_USERS } from '../dummy_user';
 
 @Component({
   selector: 'app-user',
@@ -43,39 +10,14 @@ const DUMMY_USERS: User[] = [
   styleUrl: './user.component.scss',
 })
 export class UserComponent {
-  selectedUser = signal(DUMMY_USERS[this.randomIndex]);
-  imagePath = computed(() => 'assets/users/' + this.selectedUser().avatar);
-  printers: Bluetooth.BluetoothDevice[] = []; // Array para armazenar impressoras encontradas
-  errorMessage: string | null = null; // Variável para armazenar mensagens de erro
+  id = input.required<string>();
+  name = input.required<string>();
+  avatar = input.required<string>();
+  select = output<string>();
+
+  imagePath = computed(() => 'assets/users/' + this.avatar());
 
   onSelectUser() {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUser.set(DUMMY_USERS[randomIndex]);
-  }
-
-  private get randomIndex(): number {
-    return Math.floor(Math.random() * DUMMY_USERS.length);
-  }
-
-  async listBluetoothPrinters() {
-    this.errorMessage = null; // Limpa a mensagem de erro antes de tentar listar impressoras
-    try {
-      // Verifica se a API Bluetooth está disponível
-      if ('bluetooth' in navigator) {
-        // Solicita ao usuário que selecione dispositivos Bluetooth
-        const device = await navigator.bluetooth.requestDevice({
-          filters: [{ services: ['printer_service'] }], // Substitua pelo UUID correto
-        });
-
-        // Adiciona o dispositivo selecionado à lista de impressoras
-        this.printers.push(device);
-
-        console.log('Impressora Bluetooth encontrada:', device.name);
-      } else {
-        this.errorMessage = 'Bluetooth não é suportado neste dispositivo.';
-      }
-    } catch (error: any) {
-      this.errorMessage = `Erro ao listar impressoras Bluetooth: ${error?.message}`;
-    }
+    this.select.emit(this.id());
   }
 }

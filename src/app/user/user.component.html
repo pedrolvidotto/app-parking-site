@@ -1,15 +1,6 @@
 <div>
   <button (click)="onSelectUser()">
-    <img [src]="imagePath()" [alt]="selectedUser().name" />
-    <span>{{ selectedUser().name }}</span>
+    <img [src]="imagePath()" [alt]="name()" />
+    <span>{{ name() }}</span>
   </button>
-  <button (click)="listBluetoothPrinters()">
-    Listar Impressoras Bluetooth
-  </button>
-  <ul>
-    <li *ngFor="let printer of printers">{{ printer.name }}</li>
-  </ul>
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
 </div>

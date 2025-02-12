@@ -1,0 +1,9 @@
+<div>
+  <button (click)="connectToBluetoothDevice()">
+    Conectar a Dispositivo Bluetooth
+  </button>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <ul>
+    <li *ngFor="let device of devices">{{ device.name }}</li>
+  </ul>
+</div>

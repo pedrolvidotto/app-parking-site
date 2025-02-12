@@ -19,4 +19,5 @@ declare namespace Bluetooth {
 
 interface Navigator {
   bluetooth: Bluetooth.Bluetooth;
+  bluetoothDevice: Bluetooth.BluetoothDevice;
 }
